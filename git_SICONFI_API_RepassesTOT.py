@@ -89,7 +89,7 @@ def extrair_dados_municipios():
             except Exception as e:
                 print(f"\n Erro ao salvar arquivo: {e}")
         else:
-            print("\n⚠ Nenhum dado válido obtido para este município")
+            print("\n Nenhum dado válido obtido para este município")
 
     print("\nProcessamento concluído para todos os municípios")
     return True
