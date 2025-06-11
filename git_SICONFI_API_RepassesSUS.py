@@ -17,21 +17,21 @@ def extrair_dados_municipios():
 
     try:
         os.makedirs(dir_saida, exist_ok=True)
-        print(f"✓ Diretório de saída verificado: {dir_saida}")
+        print(f" Diretório de saída verificado: {dir_saida}")
     except Exception as e:
-        print(f"✗ Erro ao acessar/criar diretório: {e}")
+        print(f" Erro ao acessar/criar diretório: {e}")
         return False
 
     try:
         municipios_df = pd.read_csv(arquivo_municipios, sep=',')
         codigos_ibge = municipios_df.iloc[:, 0].astype(str).str.strip()
-        print(f"✓ {len(codigos_ibge)} municípios carregados do arquivo")
+        print(f" {len(codigos_ibge)} municípios carregados do arquivo")
     except Exception as e:
-        print(f"✗ Erro ao ler arquivo de municípios: {e}")
+        print(f" Erro ao ler arquivo de municípios: {e}")
         return False
 
     for i, cod_ibge in enumerate(codigos_ibge, 1):
-        print(f"\n▶ Processando município {i}/{len(codigos_ibge)} - Código IBGE: {cod_ibge}")
+        print(f"\n Processando município {i}/{len(codigos_ibge)} - Código IBGE: {cod_ibge}")
         
         dados_consolidados = []
 
@@ -63,17 +63,17 @@ def extrair_dados_municipios():
                         df_mes['me_referencia'] = me_referencia
                         df_mes['cod_ibge'] = cod_ibge
                         dados_consolidados.append(df_mes)
-                        print(f"✓ {me_referencia:02d}/{an_referencia}", end=' ', flush=True)
+                        print(f" {me_referencia:02d}/{an_referencia}", end=' ', flush=True)
                     else:
-                        print(f"⚠ {me_referencia:02d}/{an_referencia} (sem dados válidos)", end=' ', flush=True)
+                        print(f" {me_referencia:02d}/{an_referencia} (sem dados válidos)", end=' ', flush=True)
                 else:
-                    print(f"⚠ {me_referencia:02d}/{an_referencia} (vazio)", end=' ', flush=True)
+                    print(f" {me_referencia:02d}/{an_referencia} (vazio)", end=' ', flush=True)
 
             except requests.exceptions.RequestException as e:
-                print(f"✗ {me_referencia:02d}/{an_referencia} (erro: {e})", end=' ', flush=True)
+                print(f" {me_referencia:02d}/{an_referencia} (erro: {e})", end=' ', flush=True)
                 continue
             except KeyboardInterrupt:
-                print("\n\n⚠ Processamento interrompido pelo usuário")
+                print("\n\n Processamento interrompido pelo usuário")
                 return False
 
         if dados_consolidados:
@@ -83,12 +83,12 @@ def extrair_dados_municipios():
 
             try:
                 df_final.to_csv(caminho_completo, index=False, encoding='utf-8-sig', sep=';')
-                print(f"\n✔ Arquivo salvo: {nome_arquivo}")
+                print(f"\n Arquivo salvo: {nome_arquivo}")
                 print(f"   Registros: {len(df_final)} | Caminho: {caminho_completo}")
             except Exception as e:
-                print(f"\n✗ Erro ao salvar arquivo: {e}")
+                print(f"\n Erro ao salvar arquivo: {e}")
         else:
-            print("\n⚠ Nenhum dado válido obtido para este município")
+            print("\n Nenhum dado válido obtido para este município")
 
     print("\n Processamento concluído")
     return True
