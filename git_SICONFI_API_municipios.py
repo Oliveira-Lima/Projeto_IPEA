@@ -28,7 +28,7 @@ for _, row in df.iterrows():
                 "id_tv": "period_change"
             }
 
-            print(f"🔍 Buscando: cod_ibge={cod_ibge}, ano={ano}, mes={mes}")
+            print(f"Buscando: cod_ibge={cod_ibge}, ano={ano}, mes={mes}")
             try:
                 response = requests.get(url, params=params)
 
